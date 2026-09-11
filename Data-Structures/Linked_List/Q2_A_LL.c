@@ -103,7 +103,32 @@ int main()
 
 void alternateMergeLinkedList(LinkedList *ll1, LinkedList *ll2)
 {
-    /* add your code here */
+
+    ListNode *cur1,*cur2; //각 연결리스트의 현재노드를 가리킬 포인터
+	ListNode *next1, *next2; //현재 노드의 다음노드를 임시로 저장할 포인터
+
+	if (ll1 == NULL || ll2==NULL) //두 연결리스트 중 하나라도 존재하지 않으면
+		return; 				  // 머지 불가
+
+	cur1 = ll1->head; //각 연결리스트 첫번째 노드부터 시작
+	cur2= ll2->head;
+
+	//두 리스트 중 하나라도 비어있으면 머지 불가
+	if (cur1 == NULL || cur2==NULL)
+		return;
+
+	while(cur1!=NULL && cur2 !=NULL){ //두 리스트 모두 현재 노드가 존재하는 동안
+		next1=cur1->next; //각 현재 노드의 다음 주소 저장
+		next2=cur2->next; 
+
+		cur1->next=cur2;  //ll1 현재 노드의 뒤에 ll2의 현재노드 삽입
+		cur2->next=next1; //ll2의 현재노드 뒤에 ll1의 다음노드 연결
+
+		cur1=next1; //다음 노드로 이동
+		cur2=next2;
+	}
+	//남은 노드가 있다면 
+	ll2->head = cur2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
