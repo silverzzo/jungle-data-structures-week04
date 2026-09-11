@@ -13,12 +13,12 @@ Purpose: Implementing the required functions for Question 1 */
 
 typedef struct _listnode{
 	int item;
-	struct _listnode *next;
+	struct _listnode *next; //다음 노드의 주소를 저장하는 포인터
 } ListNode;			// You should not change the definition of ListNode
 
 typedef struct _linkedlist{
 	int size;
-	ListNode *head;
+	ListNode *head; // 첫번째 노드의 주소를 저장하는 포인터
 } LinkedList;			// You should not change the definition of LinkedList
 
 
@@ -71,7 +71,6 @@ int main()
 		case 3:
 			printf("The resulting sorted linked list is: ");
 			printList(&ll);
-			removeAllItems(&ll);
 			break;
 		case 0:
 			removeAllItems(&ll);
@@ -88,9 +87,35 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// 어디에 넣어야 하는지 찾기
+//*: 주소를 저장하는 변수 -> 호출할 때 주소인 &를 넘겨야 함
+// LinkedList *ll -> 연결리스트의 주소 저장, int item -> 새로 넣을 숫자
 int insertSortedLL(LinkedList *ll, int item)
 {
-	/* add your code here */
+	ListNode *cur; //ListNode의 주소를 저장하는 포인터
+	int index=0; //삽입할 위치 인덱스 
+	
+	// 연결리스트가 널이라면 -1 반환
+	if (ll == NULL)
+		return -1;
+
+	//cur에 head가 들고있는 첫번째 노드의 주소를 저장
+	cur=ll->head;
+
+	//현재 노드가 존재하고, 현재 값이 item보다 작을 때 다음 노드로 이동
+	while (cur != NULL && cur->item < item){
+			cur=cur->next;
+			index++;
+	}			
+	//cur이 널이 아니고 현재 노드의 아이템이 새로 넣으려는 item과 같다면
+	if(cur != NULL && cur->item==item){
+			return -1; //중복이므로 -1반환
+	}
+	//찾은 index위치에 새 노드 삽입
+	insertNode(ll, index, item); 
+	
+	//삽입된 인덱스 위치 반환
+	return index;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -150,6 +175,7 @@ ListNode *findNode(LinkedList *ll, int index){
 	return temp;
 }
 
+// index 위치에 value를 삽입
 int insertNode(LinkedList *ll, int index, int value){
 
 	ListNode *pre, *cur;
