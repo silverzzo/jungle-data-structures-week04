@@ -87,7 +87,30 @@ int main()
 
 void RecursiveReverse(ListNode **ptrHead)
 {
-	/* add your code here */
+	ListNode *cur;
+	ListNode *next;
+
+
+
+	// 리스트가 존재하지 않거나, 비어 있거나, 노드가 하나뿐이면 종료
+	if(*ptrHead==NULL|| (*ptrHead)->next==NULL|| (*ptrHead)->next == NULL){
+		return;
+	}
+	
+	// 현재 노드와 다음 노드 저장
+	cur=*ptrHead;
+	next=cur->next;
+
+	//재귀호출로 마지막 노드까지 이동
+	RecursiveReverse(&next);
+
+	//마지막 노드부터 돌아오면서
+	//기존 next 방향을 반대로 연결
+	cur->next->next=cur;
+	cur->next=NULL;
+
+	//마지막 노드를 새로운 헤드로 설정
+	*ptrHead = next;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
