@@ -102,7 +102,42 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode *cur;
+	int count=0;
+
+    // 전달받은 LinkedList 포인터 중 하나라도 NULL이면 함수 종료
+	if(ll == NULL || resultFrontList == NULL || resultBackList == NULL){ 
+		return;
+	}
+
+    // 원본 리스트가 비어 있으면 결과 리스트들도 빈 리스트로 설정
+	if(ll->head==NULL){
+		resultFrontList->head = NULL;
+    	resultBackList->head = NULL;
+		return;
+	}
+
+	cur=ll->head; //현재 노드는 연결리스트의 헤드
+
+	while(cur!=NULL){//원본 연결리스트 노드개수 세기
+		count++; 
+		cur=cur->next;
+	}
+	cur=ll->head; //cur이 다시 연결리스트의 첫 번째 노드 가리키도록 
+	int frontcount=(count+1)/2;
+
+	resultFrontList->head=ll->head;
+
+	for (int i=0;i<frontcount-1;i++){
+		cur=cur->next;
+	}
+
+	resultBackList->head=cur->next;
+	// front와 back 리스트의 연결을 끊음
+	cur->next=NULL;
+	
+	// 원본 리스트가 결과 리스트들과 같은 노드를 중복 소유하지 않도록 head 제거
+	ll->head = NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
