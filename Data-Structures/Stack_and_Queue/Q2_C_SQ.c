@@ -113,12 +113,35 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+    ListNode *cur= ll->head;
+
+	while (cur!=NULL)
+	{
+		int item=cur->item;
+		push(s,item);
+		cur=cur->next;
+	}
+	
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	//임시저장 스택 구조체 만듦
+	Stack s2;
+	s2.ll.head = NULL;
+	s2.ll.size = 0;
+	
+	int ssize=s->ll.size; //스택 사이즈는 스택이 가리키는 연결리스트의 사이즈
+	for (int i=0;i<ssize;i++){
+		int item=pop(s); //팝하고 아이템 변수에 저장
+		if(item%2!=0){ //아이템이 홀수면 s2에다가 푸시
+			push(&s2,item);
+		}
+	}
+	while(isEmptyStack(&s2)==0){ //s2 비어있을 때까지
+		int item= pop(&s2);//s2에서 팝하고 아이템 변수에 넣기
+		push(s,item);//스택에 아이템 푸쉬
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
