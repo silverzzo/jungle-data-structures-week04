@@ -116,12 +116,32 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	//현재 노드 저장
+	ListNode *cur=ll->head;
+
+	//cur이 있을 때까지
+	while(cur!=NULL){
+		int item=cur->item;
+		//q에 item 넣기
+		enqueue(q,item);
+		cur=cur->next; //cur값 이동
+	}
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	//현재 큐의 원소 개수 저장
+	int qsize=q->ll.size;
+
+	// q 배열 크기가 될때까지
+	for(int i=0;i<qsize;i++){
+		//큐에서 빼서 변수에 넣기
+		int item=dequeue(q);
+		//꺼낸 변수 딱/홀 판별 -> 짝수면 다시 넣기
+		if (item%2==0){
+			enqueue(q,item);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
