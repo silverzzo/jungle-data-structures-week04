@@ -104,7 +104,60 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	Stack s;
+	// Initalize the stack as an empty stack
+	s.ll.head = NULL;
+	s.ll.size = 0;
+
+	char a;
+	int i=0;
+
+	//현재 문자 a 가져오기
+	while(expression[i]!='\0'){
+		a=expression[i];
+
+		//a가 여는괄호면
+		if(a=='('||a=='{'||a=='['){
+			push(&s,a);
+		}
+		else{
+			//스택 비어있으면
+			if(isEmptyStack(&s)){
+				return 1;
+			}
+			else{
+				//top확인
+				int item=peek(&s);
+
+				//괄호 짝 맞추기
+				if(item=='('){
+					if (a==')'){
+						pop(&s);
+					}
+					else{return 1;}
+				}
+				if(item=='{'){
+					if (a=='}'){
+						pop(&s);
+					}
+					else{return 1;}
+				}
+				if(item=='['){
+					if (a==']'){
+						pop(&s);
+					}
+					else{return 1;}
+				}
+			}
+		}
+		//다음 문자로 이종
+		i++;
+	}
+	//스택 비었는지 확인
+	if(isEmptyStack(&s)){
+		return 0;
+	}
+	else{return 1;}
 }
 
 ////////////////////////////////////////////////////////////
