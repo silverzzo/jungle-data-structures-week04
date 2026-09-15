@@ -66,7 +66,7 @@ int main()
 	s.ll.size = 0;
 
 	printf("1: Insert an integer into the stack:\n");
-	printf("3: Remove values until the given value;\n");
+	printf("2: Remove values until the given value;\n");
 	printf("0: Quit:\n");
 
 
@@ -111,7 +111,14 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	while(!isEmptyStack(s)){
+		//value인지 확인 -> 아니면 제거
+		int item=peek(s);
+		if(item==value){
+			break;
+		}
+		pop(s);
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////////////
