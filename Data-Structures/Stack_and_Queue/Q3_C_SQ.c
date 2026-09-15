@@ -103,7 +103,50 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	Stack temp1,temp2;
+  	temp1.ll.head=NULL;
+	temp1.ll.size=0;
+	temp2.ll.head=NULL;
+	temp2.ll.size=0;
+
+	int s1,s2;
+	int ssize=s->ll.size;
+	int result=1; //연속 판별 결과 저장
+
+	//스택 원소개수 홀수인지 확인
+	if(ssize%2!=0){
+		return 0;
+	}
+
+	//스택에 원소 남아있는동안
+	while(!isEmptyStack(s)){
+		//2개 pop
+		s1=pop(s);
+		s2=pop(s);
+
+		//복구를 위해 temp1에 푸시
+		push(&temp1,s2);
+		push(&temp1,s1);
+		
+		//두 값이 consecutive 하지 않으면
+		if(s1!=(s2+1) && s2!=(s1+1)){ 
+			result=0; 					//0으로 표시하고
+			break;						//검사 중단
+		}
+	}
+	
+	//temp1의 원소를 temp2로 옮겨 순서 뒤집기
+	while(!isEmptyStack(&temp1)){		
+		int item=pop(&temp1);			
+		push(&temp2,item);				
+	}
+
+	//temp2의 원소를 원래 스택으로 옮겨 순서 복구
+	while(!isEmptyStack(&temp2)){		
+		int item=pop(&temp2);			
+		push(s,item);					
+	}
+	return result;//결과 리턴
 }
 
 //////////////////////////////////////////////////////////////////////////////////
