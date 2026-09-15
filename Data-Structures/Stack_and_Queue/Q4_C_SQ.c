@@ -112,7 +112,21 @@ int main()
 
 void reverse(Queue *q)
 {
-/* add your code here */
+	Stack s;
+
+    //initialize the queue
+	s.ll.head =NULL;
+	s.ll.size =0;
+	s.ll.tail=NULL;
+
+	while (!isEmptyQueue(q)){
+		int item=dequeue(q);
+		push(&s,item);
+	}
+	while(!isEmptyStack(&s)){
+		int item=pop(&s);
+		enqueue(q,item);
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
